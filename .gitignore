@@ -2,11 +2,11 @@
 secrets/
 *.key
 airflow.cfg
+docker-compose.override.yml
 __pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
 logs/
-
-__pycache__/         
-*.pyc                   
-.pytest_cache/          
-.mypy_cache/            
-.ipynb_checkpoints      
+*.log
+.ipynb_checkpoints/
