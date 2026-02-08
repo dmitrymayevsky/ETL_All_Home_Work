@@ -1,0 +1,16 @@
+::group::Log message source detailssources=["/opt/airflow/logs/dag_id=incremental_temperature_load/run_id=manual__2026-02-08T14:29:58.459489+00:00/task_id=incremental_load_task/attempt=1.log"] 
+::endgroup::
+[2026-02-08T14:29:58.924330Z] INFO - DAG bundles loaded: dags-folder, example_dags
+[2026-02-08T14:29:58.925019Z] INFO - Filling up the DagBag from /opt/airflow/dags/incremental_load.py
+[2026-02-08T14:29:58.930891Z] WARNING - The `airflow.operators.python.PythonOperator` attribute is deprecated. Please use `'airflow.providers.standard.operators.python.PythonOperator'`.category=DeprecatedImportWarning 
+[2026-02-08T14:29:58.953206Z] INFO - Task instance is in running state
+[2026-02-08T14:29:58.953582Z] INFO -  Previous state of the Task instance: TaskInstanceState.QUEUED
+[2026-02-08T14:29:58.955994Z] INFO - Current task name:incremental_load_task
+[2026-02-08T14:29:58.957197Z] INFO - Dag name:incremental_temperature_load
+[2026-02-08T14:29:58.969882Z] INFO - Incremental load: 0 new records
+[2026-02-08T14:29:58.969286Z] INFO - Done. Returned value was: 0
+[2026-02-08T14:29:58.969512Z] INFO - Pushing xcomti=RuntimeTaskInstance(id=UUID('019c3da8-cc45-7ff1-95fd-e8979fcf4ead'), task_id='incremental_load_task', dag_id='incremental_temperature_load', run_id='manual__2026-02-08T14:29:58.459489+00:00', try_number=1, dag_version_id=UUID('019c3da6-907e-717c-9c68-0c0556d851e7'), map_index=-1, hostname='62a95f7a5318', context_carrier={}, task=<Task(PythonOperator): incremental_load_task>, bundle_instance=LocalDagBundle(name=dags-folder), max_tries=0, start_date=datetime.datetime(2026, 2, 8, 14, 29, 58, 598889, tzinfo=datetime.timezone.utc), end_date=None, state=<TaskInstanceState.RUNNING: 'running'>, is_mapped=False, rendered_map_index=None) 
+[2026-02-08T14:29:58.970168Z] INFO - No new data
+[2026-02-08T14:29:59.004128Z] INFO - Task instance in success state
+[2026-02-08T14:29:59.004695Z] INFO -  Previous state of the Task instance: TaskInstanceState.RUNNING
+[2026-02-08T14:29:59.005105Z] INFO - Task operator:<Task(PythonOperator): incremental_load_task>
