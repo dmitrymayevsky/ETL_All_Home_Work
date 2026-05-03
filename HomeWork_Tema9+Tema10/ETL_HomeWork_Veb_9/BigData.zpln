@@ -1,0 +1,143 @@
+﻿{
+  "paragraphs": [
+    {
+      "user": "anonymous",
+      "progress": 0,
+      "config": {
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "colWidth": 12,
+        "editorMode": "ace/mode/python",
+        "fontSize": 9,
+        "results": {},
+        "enabled": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {
+        "jobUrl": {
+          "propertyName": "jobUrl",
+          "label": "SPARK JOB",
+          "tooltip": "View in Spark web UI",
+          "group": "spark",
+          "values": [
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=10",
+              "$$hashKey": "object:1496"
+            },
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=11",
+              "$$hashKey": "object:1497"
+            },
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=12",
+              "$$hashKey": "object:1498"
+            },
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=13",
+              "$$hashKey": "object:1499"
+            },
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=14",
+              "$$hashKey": "object:1500"
+            },
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=15",
+              "$$hashKey": "object:1501"
+            },
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=16",
+              "$$hashKey": "object:1502"
+            },
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=17",
+              "$$hashKey": "object:1503"
+            },
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=18",
+              "$$hashKey": "object:1504"
+            },
+            {
+              "jobUrl": "https://ui-c9qlt9n8ejj4g9cakp73-rc1a-dataproc-d-bnoasd247tjh5dd0-40829.dataproc-ui.yandexcloud.net/jobs/job?id=19",
+              "$$hashKey": "object:1505"
+            }
+          ],
+          "interpreterSettingId": "spark"
+        }
+      },
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1777839292689_1189206714",
+      "id": "paragraph_1777839292689_1189206714",
+      "dateCreated": "2026-05-03T20:14:52+0000",
+      "status": "FINISHED",
+      "focus": true,
+      "$$hashKey": "object:770",
+      "text": "%pyspark\n\nfrom pyspark.sql import Row\nfrom pyspark.sql.functions import col, when, avg, round as spark_round\n\n# Тестовые данные сгенерированы для этого задания специально, они представляют продажи интернет-магазина\nsales_data = [\n    Row(order_id=101, product=\"Laptop\", category=\"Electronics\", price=1200, quantity=1, customer=\"Alice\", region=\"North\", discount=0.05),\n    Row(order_id=102, product=\"Mouse\", category=\"Electronics\", price=25, quantity=2, customer=\"Bob\", region=\"South\", discount=0.0),\n    Row(order_id=103, product=\"Desk\", category=\"Furniture\", price=350, quantity=1, customer=\"Alice\", region=\"North\", discount=0.1),\n    Row(order_id=104, product=\"Chair\", category=\"Furniture\", price=150, quantity=4, customer=\"Charlie\", region=\"East\", discount=0.0),\n    Row(order_id=105, product=\"Monitor\", category=\"Electronics\", price=400, quantity=1, customer=\"Diana\", region=\"West\", discount=0.05),\n    Row(order_id=106, product=\"Keyboard\", category=\"Electronics\", price=45, quantity=3, customer=\"Bob\", region=\"South\", discount=0.0),\n    Row(order_id=107, product=\"Lamp\", category=\"Furniture\", price=30, quantity=2, customer=\"Eve\", region=\"East\", discount=0.0),\n    Row(order_id=108, product=\"Laptop\", category=\"Electronics\", price=1200, quantity=1, customer=\"Charlie\", region=\"East\", discount=0.1),\n]\n\ndf = spark.createDataFrame(sales_data)\n\nprint(\"=\" * 60)\nprint(\"Продажи\")\nprint(\"=\" * 60)\ndf.show(10, truncate=False)\n\ndf_with_total = df.withColumn(\"total_amount\", spark_round(col(\"price\") * col(\"quantity\") * (1 - col(\"discount\")), 2))\n\nprint(\"\\n\" + \"=\" * 60)\nprint(\"Трансформация (пример 1): Фильтр (total_amount > 200)\")\nprint(\"=\" * 60)\nhigh_value_orders = df_with_total.filter(col(\"total_amount\") > 200)\nhigh_value_orders.show(10, truncate=False)\n\nprint(\"\\n\" + \"=\" * 60)\nprint(\"Трансформация (пример 2): Агрегация - сумма продаж по категориям\")\nprint(\"=\" * 60)\nfrom pyspark.sql.functions import sum as spark_sum\ncategory_sales = df_with_total.groupBy(\"category\").agg(spark_sum(\"total_amount\").alias(\"total_revenue\"))\ncategory_sales.show(truncate=False)\n\nprint(\"\\n\" + \"=\" * 60)\nprint(\"Трансформация (пример 3): Категория цен (High если price > 300, иначе Low)\")\nprint(\"=\" * 60)\ndf_with_price_category = df_with_total.withColumn(\"price_category\", when(col(\"price\") > 300, \"High\").otherwise(\"Low\"))\ndf_with_price_category.select(\"product\", \"price\", \"price_category\").show(10, truncate=False)\n\nprint(\"\\n\" + \"=\" * 60)\nprint(\"Трансформация (пример 4): Статистика продаж по регионам\")\nprint(\"=\" * 60)\nregion_stats = df_with_total.groupBy(\"region\").agg(\n    spark_sum(\"total_amount\").alias(\"total_sales\"),\n    avg(\"quantity\").alias(\"avg_quantity\")\n)\nregion_stats.show(truncate=False)\n\nprint(\"\\nОперация завершилась успешно\")",
+      "dateUpdated": "2026-05-03T20:18:10+0000",
+      "dateFinished": "2026-05-03T20:18:11+0000",
+      "dateStarted": "2026-05-03T20:18:10+0000",
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "============================================================\nПродажи\n============================================================\n+--------+--------+-----------+-----+--------+--------+------+--------+\n|order_id|product |category   |price|quantity|customer|region|discount|\n+--------+--------+-----------+-----+--------+--------+------+--------+\n|101     |Laptop  |Electronics|1200 |1       |Alice   |North |0.05    |\n|102     |Mouse   |Electronics|25   |2       |Bob     |South |0.0     |\n|103     |Desk    |Furniture  |350  |1       |Alice   |North |0.1     |\n|104     |Chair   |Furniture  |150  |4       |Charlie |East  |0.0     |\n|105     |Monitor |Electronics|400  |1       |Diana   |West  |0.05    |\n|106     |Keyboard|Electronics|45   |3       |Bob     |South |0.0     |\n|107     |Lamp    |Furniture  |30   |2       |Eve     |East  |0.0     |\n|108     |Laptop  |Electronics|1200 |1       |Charlie |East  |0.1     |\n+--------+--------+-----------+-----+--------+--------+------+--------+\n\n\n============================================================\nТрансформация (пример 1): Фильтр (total_amount > 200)\n============================================================\n+--------+-------+-----------+-----+--------+--------+------+--------+------------+\n|order_id|product|category   |price|quantity|customer|region|discount|total_amount|\n+--------+-------+-----------+-----+--------+--------+------+--------+------------+\n|101     |Laptop |Electronics|1200 |1       |Alice   |North |0.05    |1140.0      |\n|103     |Desk   |Furniture  |350  |1       |Alice   |North |0.1     |315.0       |\n|104     |Chair  |Furniture  |150  |4       |Charlie |East  |0.0     |600.0       |\n|105     |Monitor|Electronics|400  |1       |Diana   |West  |0.05    |380.0       |\n|108     |Laptop |Electronics|1200 |1       |Charlie |East  |0.1     |1080.0      |\n+--------+-------+-----------+-----+--------+--------+------+--------+------------+\n\n\n============================================================\nТрансформация (пример 2): Агрегация - сумма продаж по категориям\n============================================================\n+-----------+-------------+\n|category   |total_revenue|\n+-----------+-------------+\n|Electronics|2785.0       |\n|Furniture  |975.0        |\n+-----------+-------------+\n\n\n============================================================\nТрансформация (пример 3): Категория цен (High если price > 300, иначе Low)\n============================================================\n+--------+-----+--------------+\n|product |price|price_category|\n+--------+-----+--------------+\n|Laptop  |1200 |High          |\n|Mouse   |25   |Low           |\n|Desk    |350  |High          |\n|Chair   |150  |Low           |\n|Monitor |400  |High          |\n|Keyboard|45   |Low           |\n|Lamp    |30   |Low           |\n|Laptop  |1200 |High          |\n+--------+-----+--------------+\n\n\n============================================================\nТрансформация (пример 4): Статистика продаж по регионам\n============================================================\n+------+-----------+------------------+\n|region|total_sales|avg_quantity      |\n+------+-----------+------------------+\n|South |185.0      |2.5               |\n|East  |1740.0     |2.3333333333333335|\n|North |1455.0     |1.0               |\n|West  |380.0      |1.0               |\n+------+-----------+------------------+\n\n\nОперация завершилась успешно\n"
+          }
+        ]
+      }
+    },
+    {
+      "text": "%pyspark\n",
+      "user": "anonymous",
+      "dateUpdated": "2026-05-03T20:15:03+0000",
+      "progress": 0,
+      "config": {
+        "colWidth": 12,
+        "fontSize": 9,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "scala",
+          "editOnDblClick": false,
+          "completionKey": "TAB",
+          "completionSupport": true
+        },
+        "editorMode": "ace/mode/scala"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "runtimeInfos": {},
+      "progressUpdateIntervalMs": 500,
+      "jobName": "paragraph_1777839303978_1864854569",
+      "id": "paragraph_1777839303978_1864854569",
+      "dateCreated": "2026-05-03T20:15:03+0000",
+      "status": "READY",
+      "focus": true,
+      "$$hashKey": "object:841"
+    }
+  ],
+  "name": "BigDataVebinar",
+  "id": "2MPWEZES2",
+  "defaultInterpreterGroup": "spark",
+  "version": "0.10.1",
+  "noteParams": {},
+  "noteForms": {},
+  "angularObjects": {},
+  "config": {
+    "isZeppelinNotebookCronEnable": false,
+    "looknfeel": "default",
+    "personalizedMode": "false"
+  },
+  "info": {},
+  "path": "/BigDataVebinar"
+}
